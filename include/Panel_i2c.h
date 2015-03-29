@@ -4,6 +4,8 @@
  * @file      Panel_i2c.h
  * @author    Iowa State University uCube team
  * @author    Andy Snawerdt
+ * @author    Jeramie Vens
+ * @author    Kris Burney
  * @date      Mar 28, 2015
  * @brief     Prototype for I2C functions
  * @copyright Copyright (C) 2015 ISU uCube team
