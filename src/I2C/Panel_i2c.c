@@ -49,7 +49,7 @@ volatile enum {
 }rx_state;
 
 /**
- * @brief     Initialization for I2C.
+ * @brief     Initialization for I2C on the MSP430.
  * @details   Initializes the I2C0 bus by enabling the chosen I2C module. Resets
  *            the module, enables the master module, uses the system clock,
  *            and sets the data transfer rate.
@@ -68,7 +68,13 @@ void I2C_init()
     UCB0BR1 = 0;
 
 }
-
+/**
+ * @brief     Recieve function for I2C on the MSP430.
+ * @details   Multi-master system. Recieves data from the Tiva through the FRAM
+ *            by selecting the address of the slave and enabling an interrupt which
+ *            contains a state machine dealing with whether certain portions of the
+ *            recieve function.
+ */
 unsigned char volatile * I2C_receive(uint8_t slave_address, char *array, uint16_t latch) //From FRAM, Change name of function (conflicting with Master-MCU I2C declaration)
 {
 	rx_state = STATE_START_LOW;
@@ -89,7 +95,7 @@ unsigned char volatile * I2C_receive(uint8_t slave_address, char *array, uint16_
     //while (UCB0CTL1 & UCTXSTP);               // Ensure stop condition got sent
 
     //while (UCB0CTL1 & UCTXSTT);               // Ensure start condition got sent
-//    UCB0CTL1 |= UCTXSTP;                      // I2C stop condition
+    //UCB0CTL1 |= UCTXSTP;                      // I2C stop condition
     buffer = array;
     flag = 0;
     i = 0;
